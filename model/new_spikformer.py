@@ -50,17 +50,17 @@ class spiking_self_attention(nn.Module):
         q_m_out = self.q_m(x_for_qkv) # TB L D
         q_m_out = self.q_ln(q_m_out).reshape(T, B, L, D).contiguous()
         q_m_out = self.q_lif(q_m_out)
-        q = q_m_out.transpose(-1, -2).reshape(T, B, L, self.heads, D // self.heads).permute(0, 1, 3, 2, 4).contiguous()
+        q = q_m_out.reshape(T, B, L, self.heads, D // self.heads).permute(0, 1, 3, 2, 4).contiguous()
 
         k_m_out = self.k_m(x_for_qkv)
         k_m_out = self.k_ln(k_m_out).reshape(T, B, L, D).contiguous()
         k_m_out = self.k_lif(k_m_out)
-        k = k_m_out.transpose(-1, -2).reshape(T, B, L, self.heads, D // self.heads).permute(0, 1, 3, 2, 4).contiguous()
+        k = k_m_out.reshape(T, B, L, self.heads, D // self.heads).permute(0, 1, 3, 2, 4).contiguous()
 
         v_m_out = self.v_m(x_for_qkv)
         v_m_out = self.v_ln(v_m_out).reshape(T, B, L, D).contiguous()
         v_m_out = self.v_lif(v_m_out)
-        v = v_m_out.transpose(-1, -2).reshape(T, B, L, self.heads, D // self.heads).permute(0, 1, 3, 2, 4).contiguous()
+        v = v_m_out.reshape(T, B, L, self.heads, D // self.heads).permute(0, 1, 3, 2, 4).contiguous()
 
         attn = (q @ k.transpose(-2, -1))
         # print(attn.shape)
