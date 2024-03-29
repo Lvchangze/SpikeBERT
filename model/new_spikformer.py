@@ -115,7 +115,7 @@ class block(nn.Module):
     def __init__(self, length, tau, common_thr, dim, heads=8, qkv_bias=False, qk_scale=0.125):
         super().__init__()
         self.attn = spiking_self_attention(length=length, tau=tau, common_thr=common_thr, dim=dim, heads=heads, qkv_bias=qkv_bias, qk_scale=qk_scale)
-        self.mlp = mlp(length=length, tau=tau, common_thr=common_thr, in_features=dim, out_features=dim*4)
+        self.mlp = mlp(length=length, tau=tau, common_thr=common_thr, in_features=dim, hidden_features=dim*4, out_features=dim)
 
     def forward(self, x):
         # B T L D
