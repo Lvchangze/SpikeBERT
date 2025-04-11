@@ -11,3 +11,5 @@ bash predistill_spikformer.sh
 
 ## Distill Knowledge for Fine-tuned BERT
 bash new_distill_spikformer.sh
+
+You can change the parameters in .sh files.
