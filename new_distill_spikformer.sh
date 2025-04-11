@@ -1,12 +1,15 @@
+$fine_tuned_bert_path=XXX
+$predistill_model_path=XXX
+
 python -u new_distill_spikformer.py \
         --seed 42 \
-        --dataset_name senti \
+        --dataset_name sst2 \
         --data_augment "False" \
         --label_num 2 \
         --batch_size 32 \
         --fine_tune_lr 5e-4 \
         --epochs 30 \
-        --teacher_model_path "saved_models/new_tokenizer_models/bert-base-chinese_2023-03-23 13:17:48_senti_epoch1_0.9081545064377683" \
+        --teacher_model_path ${fine_tuned_bert_path} \
         --depths 12 \
         --max_length 128 \
         --dim 768 \
@@ -16,8 +19,8 @@ python -u new_distill_spikformer.py \
         --rep_weight 0.1 \
         --tau 2.0 \
         --common_thr 1.0 \
-        --predistill_model_path "" \
+        --predistill_model_path ${predistill_model_path} \
         --num_step 4 \
         --ignored_layers 0 \
         --metric "acc" \
-        > "distill_logs/senti.log"
+        > "distill_logs/sst2.log"
